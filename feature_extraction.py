@@ -44,9 +44,9 @@ def normalize_coordinates(image_path:str, label:str, convert: bool):
             return[int(cy - (h/2)), int(cy + (h/2)), int(cx - (w/2)), int(cx + (w/2))]
 
 
-image_path = r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\night-pretrain\night-training-data_00162.jpg"
+image_path = r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\night-pretrain\night-training-data_00000.jpg"
 crop_folder = r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\cropped_images"
-custom_label = "0 0.473591 0.436885 0.0223117 0.10577 0.928218"
+custom_label = "0 0.524035 0.532502 0.0559361 0.169276 0.822023"
 custom_corners = normalize_coordinates(image_path, custom_label, True)
 
-image_cropping(image_path, crop_folder, "crop_yay", custom_corners)
+image_cropping(image_path, crop_folder, "cropped_gy", custom_corners)
