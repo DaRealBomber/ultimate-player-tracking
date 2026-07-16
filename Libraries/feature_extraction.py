@@ -44,30 +44,54 @@ def normalize_coordinates(image_path:str, label:str, convert: bool):
             return[int(cy - (h/2)), int(cy + (h/2)), int(cx - (w/2)), int(cx + (w/2))]
 
 
-def generate_hsv_map(img_source:str):
+def generate_hsv_map(img_source:str, save:bool, show:bool, part):
+      #part 0 = hue, part 1 = saturation, part 2 = value
+
+      
       img = cv2.imread(f"{img_source}")
-
       hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
       H, S, V = cv2.split(hsv)
 
       image = []
 
-      for row in H:
+      if part == 0:
+            for row in H:
 
-            row_pixels = []
-            for value in row:
+                  row_pixels = []
+                  for value in row:
 
+                        row_pixels.append([int(value), 255, 255])
 
-                  row_pixels.append([int(value), 255, 255])
+                  image.append(row_pixels)
 
-            image.append(row_pixels)
+      elif part == 1:
+            for row in S:
+                  row_pixels = []
+                  for value in row:
+
+                        row_pixels.append([179, int(value), 255])
+
+                  image.append(row_pixels)
+
+      elif part == 2:
+            for row in V:
+                  row_pixels = []
+                  for value in row:
+
+                        row_pixels.append([179, 255, int(value)])
+
+                  image.append(row_pixels)
+  
 
       hsv_image = np.array(image, dtype=np.uint8)
-
       bgr = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
-      cv2.imshow("image", bgr)
-      cv2.waitKey(0)
+
+      if save:
+            cv2.imwrite(f"{img_source[:-4]}-{part}.png", bgr)
+
+      if show:
+            cv2.imshow("image", bgr)
+            cv2.waitKey(0)
 
 
-generate_hsv_map(r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\demo\homography demo\full-court.jpeg")
+generate_hsv_map(r"demo/HSV Map demo/full-frame.png", True, False, 2)
