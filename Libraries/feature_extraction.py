@@ -81,7 +81,17 @@ def generate_hsv_map(img_source:str, save:bool, show:bool, part):
                         row_pixels.append([179, 255, int(value)])
 
                   image.append(row_pixels)
-  
+      elif part == 3:
+            for out_count, row in enumerate(H):
+                  row_pixels = []
+                  for in_count, value in enumerate(row):
+
+                        row_pixels.append([120, int(S[out_count][in_count]), int(V[out_count][in_count])])
+     
+                  image.append(row_pixels)
+
+      else:
+            return "Invalid part number"
 
       hsv_image = np.array(image, dtype=np.uint8)
       bgr = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
@@ -94,4 +104,4 @@ def generate_hsv_map(img_source:str, save:bool, show:bool, part):
             cv2.waitKey(0)
 
 
-generate_hsv_map(r"demo/HSV Map demo/full-frame.png", True, False, 2)
+generate_hsv_map(r"demo/HSV Map demo/full-frame.png", True, False, 3)
