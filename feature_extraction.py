@@ -1,5 +1,5 @@
 import cv2
-
+import numpy as np
 
 def image_cropping(original_path:str, return_folder:str, cropped_name:str, corner_list:list):
       '''
@@ -44,9 +44,30 @@ def normalize_coordinates(image_path:str, label:str, convert: bool):
             return[int(cy - (h/2)), int(cy + (h/2)), int(cx - (w/2)), int(cx + (w/2))]
 
 
-image_path = r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\night-pretrain\night-training-data_00000.jpg"
-crop_folder = r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\cropped_images"
-custom_label = "0 0.524035 0.532502 0.0559361 0.169276 0.822023"
-custom_corners = normalize_coordinates(image_path, custom_label, True)
+def generate_hsv_map(img_source:str):
+      img = cv2.imread(f"{img_source}")
 
-image_cropping(image_path, crop_folder, "cropped_gy", custom_corners)
+      hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+      H, S, V = cv2.split(hsv)
+
+      image = []
+
+      for row in H:
+
+            row_pixels = []
+            for value in row:
+
+
+                  row_pixels.append([int(value), 255, 255])
+
+            image.append(row_pixels)
+
+      hsv_image = np.array(image, dtype=np.uint8)
+
+      bgr = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
+      cv2.imshow("image", bgr)
+      cv2.waitKey(0)
+
+
+generate_hsv_map(r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\demo\homography demo\full-court.jpeg")
