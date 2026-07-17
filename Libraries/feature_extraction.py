@@ -97,11 +97,11 @@ def generate_hsv_map(img_source:str, save:bool, show:bool, part, test:any):
       bgr = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
 
       if save:
-            cv2.imwrite(f"{img_source[:-4]}-{part}br.png", bgr)
+            cv2.imwrite(f"{img_source[:-4]}-{part}.png", bgr)
 
       if show:
             cv2.imshow("image", bgr)
             cv2.waitKey(0)
 
 
-generate_hsv_map(r"demo/HSV Map demo/full-frame.png", True, False, 3, [1,1,0])
+generate_hsv_map(r"C:\Users\parent\Documents\GitHub\ultimate-player-tracking\demo\HSV Map demo\night-demo.jpg", True, False, 1, [1,0,1]) 
