@@ -6,7 +6,7 @@ from pathlib import Path
 import time
 import cv2
 
-
+st.set_page_config(layout="wide")
 st.title("Ultivio")
 
 #build setup
@@ -51,14 +51,14 @@ if st.session_state["uploaded_video"]:
             
             #grab one frame and display
             cursor_style = "crosshair"
-            frame_gen = container.decode(video=0)
+            frame_gen = container.decode(video=0) #type: ignore
             frame1_img = next(frame_gen).to_ndarray(format="bgr24")
             frame1_rgb = cv2.cvtColor(frame1_img, cv2.COLOR_BGR2RGB)
 
             coord_grab = streamlit_image_coordinates.streamlit_image_coordinates(
                   frame1_rgb,
                   key=f"cursor_{cursor_style}",
-                  width=500,
+                  width= None,
                   cursor= cursor_style,
             )
 
