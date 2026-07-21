@@ -1,0 +1,2 @@
+- only save coordinates inside the field
+- better ui for clicking coordinates
